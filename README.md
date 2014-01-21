@@ -3,11 +3,11 @@ research_interest_tagger
 
 Guesses applicable research interests for text documents
 
-== Dependencies
+## Dependencies
 
 Python 2.7, Scikit-Learn, Twisted
 
-== Sample setup & usage ==
+## Sample setup & usage
 
 On Ubuntu/Debian:
 
@@ -44,7 +44,7 @@ On Ubuntu/Debian:
   curl http://localhost:6606/classify -F text=@turingai.txt
 ```
 
-== Copying ==
+## Copying
 
 Copyright Academia.edu.
 
