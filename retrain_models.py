@@ -79,7 +79,7 @@ def train(clf):
 
     return pipeline
 
-# Perceptron & Linear SVM did better than many other models tested which could handle the scale (see test_model_types.py).
+# Perceptron & Linear SVM did better than many other models tested which could handle the scale.
 models = [
     # For Perceptron, the default alpha did better than alternatives, and "n_iter=50" is blindly taken from an sklearn example.
     # We use manual class weights rather than "auto" in order to raise precision at the expense of recall.
