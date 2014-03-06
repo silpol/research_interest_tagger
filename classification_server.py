@@ -52,7 +52,7 @@ class ClassifyResource(resource.Resource):
         text = request.args['text'][0]
         pred = get_prediction(text)
         if DEBUG:
-          print "Classified text '%s...' as %s" % (text[:50].encode('ascii', 'replace'), ','.join(pred))
+          print "Classified text '%s...' as %s" % (text[:100].decode('ascii','replace').encode('ascii','replace'), ','.join(pred))
         return json.dumps({ 'categories': pred }) + "\n"
 
 class HealthResource(resource.Resource):
