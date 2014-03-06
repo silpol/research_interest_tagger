@@ -49,11 +49,15 @@ def get_prediction(text):
 
 class ClassifyResource(resource.Resource):
     def render_POST(self, request):
-        text = request.args['text'][0]
-        pred = get_prediction(text)
-        if DEBUG:
-          print "Classified text '%s...' as %s" % (text[:100].decode('ascii','replace').encode('ascii','replace'), ','.join(pred))
-        return json.dumps({ 'categories': pred }) + "\n"
+        try:
+            text = request.args['text'][0]
+            pred = get_prediction(text)
+            if DEBUG:
+              print "Classified text '%s...' as %s" % (text[:100].decode('ascii','replace').encode('ascii','replace'), ','.join(pred))
+            return json.dumps({ 'categories': pred }) + "\n"
+        except Exception as e:
+            print "Error: %s" % e
+            raise
 
 class HealthResource(resource.Resource):
     def render_GET(self, request):
