@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from __future__ import print_function
+
 
 import sys
 import os
@@ -43,14 +43,14 @@ for i in range(input_size):
 print('Final input size: %d' % input_size)
 
 categories = {}
-category_list = [item for sublist in labels for item in sublist if (not categories.has_key(item)) and (categories.__setitem__(item, True) or True)]
+category_list = [item for sublist in labels for item in sublist if (item not in categories) and (categories.__setitem__(item, True) or True)]
 category_count = len(category_list)
 for i in range(category_count):
   categories[category_list[i]] = i
 
 label_vectors = [[(1 if category_list[i] in ls else 0) for i in range(category_count)] for ls in labels]
 
-order = range(input_size)
+order = list(range(input_size))
 shuffle(order)
 
 train_texts = [texts[order[i]] for i in range(input_size)]

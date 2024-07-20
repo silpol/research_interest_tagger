@@ -53,17 +53,17 @@ class ClassifyResource(resource.Resource):
             text = request.args['text'][0]
             pred = get_prediction(text)
             if DEBUG:
-              print "Classified text '%s...' as %s" % (text[:100].decode('ascii','replace').encode('ascii','replace'), ','.join(pred))
+              print("Classified text '%s...' as %s" % (text[:100].decode('ascii','replace').encode('ascii','replace'), ','.join(pred)))
             return json.dumps({ 'categories': pred }) + "\n"
         except Exception as e:
-            print "Error: %s" % e
+            print("Error: %s" % e)
             raise
 
 class HealthResource(resource.Resource):
     def render_GET(self, request):
-        health = 'ok' if u'the internet' in get_prediction(SAMPLE_TEXT) else 'unexpected prediction'
+        health = 'ok' if 'the internet' in get_prediction(SAMPLE_TEXT) else 'unexpected prediction'
         if DEBUG:
-          print "Health check: %s" % health
+          print("Health check: %s" % health)
         return json.dumps({ 'health': health }) + "\n"
 
 
@@ -79,7 +79,7 @@ def main(fd = None):
         port = reactor.listenTCP(PORT, factory)
 
         if DEBUG:
-          print "Started listening on %d" % PORT
+          print("Started listening on %d" % PORT)
 
         fds = dict([(i,i) for i in range(NUM_PROCESSES-2)])
         fds[port.fileno()] = port.fileno()
