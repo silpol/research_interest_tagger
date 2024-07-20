@@ -14,7 +14,7 @@ On Ubuntu/Debian:
 ```
   # Install dependencies
   sudo apt-get update
-  sudo apt-get install -y build-essential libatlas-dev liblapack-dev gfortran python-dev python-pip
+  sudo apt-get install -y build-essential libatlas-base-dev liblapack-dev gfortran python-dev python-pip
 
   sudo pip install numpy --upgrade
   sudo pip install scipy --upgrade
