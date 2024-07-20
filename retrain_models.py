@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-
-
 import sys
 import os
 import json
@@ -29,24 +27,25 @@ input_size = len([f for f in os.listdir(input_dir) if f[-3:] == 'txt'])
 
 print('Initial input size: %d' % input_size)
 for i in range(input_size):
-  try:
-    with open("%s/%d.txt" % (input_dir, i)) as txt_file:
-      with open("%s/%d.labels" % (input_dir, i)) as lbl_file:
-        txt = txt_file.read()
-        lbl = json.loads(lbl_file.read())
+    try:
+        with open("%s/%d.txt" % (input_dir, i)) as txt_file:
+            with open("%s/%d.labels" % (input_dir, i)) as lbl_file:
+                txt = txt_file.read()
+                lbl = json.loads(lbl_file.read())
 
-        texts.append(txt)
-        labels.append(lbl)
-  except IOError:
-    input_size -= 1
+                texts.append(txt)
+                labels.append(lbl)
+    except IOError:
+        input_size -= 1
 
 print('Final input size: %d' % input_size)
 
 categories = {}
-category_list = [item for sublist in labels for item in sublist if (item not in categories) and (categories.__setitem__(item, True) or True)]
+category_list = [item for sublist in labels for item in sublist if
+                 (item not in categories) and (categories.__setitem__(item, True) or True)]
 category_count = len(category_list)
 for i in range(category_count):
-  categories[category_list[i]] = i
+    categories[category_list[i]] = i
 
 label_vectors = [[(1 if category_list[i] in ls else 0) for i in range(category_count)] for ls in labels]
 
@@ -57,12 +56,16 @@ train_texts = [texts[order[i]] for i in range(input_size)]
 y_train = np.array([label_vectors[order[i]] for i in range(input_size)])
 
 pipeline_steps = [
-    # Count words which are between 3 & 30 characters, appear at least 4 times, appear in less than 50% of documents, and are not known English topic-neutral words.
-    ('vectorize', TfidfVectorizer(sublinear_tf=True, max_df=0.5, min_df=4, stop_words='english', token_pattern='[a-zA-Z]{3,30}')),
+    # Count words which are between 3 & 30 characters, appear at least 4 times, appear in less than 50% of documents,
+    # and are not known English topic-neutral words.
+    ('vectorize',
+     TfidfVectorizer(sublinear_tf=True, max_df=0.5, min_df=4, stop_words='english', token_pattern='[a-zA-Z]{3,30}')),
 
-    # This should not have an effect at training sample sizes <= 10000 or so, which is fine; it's a safety check to restrict the number of features to something we can train & test on.
+    # This should not have an effect at training sample sizes <= 10000 or so, which is fine;
+    # it's a safety check to restrict the number of features to something we can train & test on.
     ('reduce_dim', SelectKBest(chi2, k=200000))
 ]
+
 
 def train(clf):
     print('=' * 80)
@@ -79,13 +82,15 @@ def train(clf):
 
     return pipeline
 
+
 # Perceptron & Linear SVM did better than many other models tested which could handle the scale.
 models = [
-    # For Perceptron, the default alpha did better than alternatives, and "n_iter=50" is blindly taken from an sklearn example.
-    # We use manual class weights rather than "auto" in order to raise precision at the expense of recall.
-    # (We want to pick "this tag" over "no tag" more often than if we weighted them according to the proportion
-    # of actual samples which have any given tag, but less often than if we weighted them equally.)
-    Perceptron(class_weight={ 0: 1, 1: 4 }, n_iter=50),
+    # For Perceptron, the default alpha did better than alternatives, and "n_iter=50" is blindly taken
+    # from an sklearn example. We use manual class weights rather than "auto" in order to raise precision
+    # at the expense of recall. (We want to pick "this tag" over "no tag" more often than if we weighted them
+    # according to the proportion of actual samples which have any given tag, but less often than if we weighted them
+    #  equally.)
+    Perceptron(class_weight={0: 1, 1: 4}, n_iter=50),
 
     # For Linear SVM, l2 loss & penalty did better than l1, and the default C=1.0 did better than alternatives.
     # "dual=False" and "tol=1e-3" are blindly taken from an sklearn example.
