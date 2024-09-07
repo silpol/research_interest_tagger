@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools >= 61.0"]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "research_interest_tagger_SILPOL"
-version = "0.0.1"
+# version = "0.0.1"  # Static version removed.
 authors = [
   { name="Andriy Tymchenko", email="silpol@gmail.com" },
   { name="David Judd", url="https://github.com/djudd" },
@@ -15,3 +15,6 @@ maintainers = [
 description = "Guesses applicable research interests for text documents"
 readme = "README.md"
 requires-python = ">=3.10"
+
+[tool.setuptools_scm]
+# can be empty if no extra settings are needed, presence enables setuptools-scm
