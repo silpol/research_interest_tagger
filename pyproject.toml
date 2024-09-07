@@ -9,20 +9,30 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "research_interest_tagger_SILPOL"
 # version = "0.0.1"  # Static version removed.
+
 authors = [
   { name="Andriy Tymchenko", email="silpol@gmail.com" },
   { name="David Judd", url="https://github.com/djudd" },
 ]
+
 maintainers = [
   { name="Andriy Tymchenko", email="silpol@gmail.com" },
 ]
 description = "Guesses applicable research interests for text documents"
 readme = "README.md"
 requires-python = ">=3.10"
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: Linux",
+]
+
+dependencies = [
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "twisted",
 ]
 
 [tool.setuptools_scm]
