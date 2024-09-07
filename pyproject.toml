@@ -1,0 +1,10 @@
+[project]
+name = "research_interest_tagger_SILPOL"
+version = "0.0.1"
+authors = [
+  { name="Andriy Tymchenko", email="silpol@gmail.com" },
+  { name="David Judd", url="https://github.com/djudd" },
+]
+description = "Guesses applicable research interests for text documents"
+readme = "README.md"
+requires-python = ">=3.10"
