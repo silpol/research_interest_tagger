@@ -9,6 +9,9 @@ authors = [
   { name="Andriy Tymchenko", email="silpol@gmail.com" },
   { name="David Judd", url="https://github.com/djudd" },
 ]
+maintainers = [
+  { name="Andriy Tymchenko", email="silpol@gmail.com" },
+]
 description = "Guesses applicable research interests for text documents"
 readme = "README.md"
 requires-python = ">=3.10"
